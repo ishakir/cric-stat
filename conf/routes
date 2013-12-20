@@ -1,0 +1,44 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#############################
+# Front End stuff here
+#############################
+
+# General
+GET     /                                   controllers.FrontEnd.index()
+
+GET     /list                               controllers.FrontEnd.list()
+
+GET     /match                              controllers.FrontEnd.matches()
+GET     /match/:id                          controllers.FrontEnd.indmatch(id)
+
+GET     /player                             controllers.FrontEnd.players()
+GET     /player/:id                         controllers.FrontEnd.player(id)
+
+#############################
+# Genuine REST API below here
+#############################
+
+# Only current data input is whacking in a whole match
+POST    /api/match                          controllers.MatchInput.putMatch
+
+# From that we can het hella lotta data
+GET     /api/list                           controllers.ListOutput.rankedList(target: String, season: Option[String])
+
+GET     /api/match                          controllers.MatchOutput.matchQuery(year: Option[String], teamId: Option[String])
+GET     /api/match/:matchId                 controllers.MatchOutput.individualMatch(matchId)
+
+GET     /api/player                         controllers.PlayerOutput.playerQuery(nameQuery: Option[String])
+GET     /api/player/:playerId               controllers.PlayerOutput.playerProfile(playerId, season: Option[String])
+
+GET     /api/season                         controllers.SeasonOutput.allSeasons()
+
+GET     /api/team                           controllers.TeamOutput.allTeams()
+
+# Javascript routing
+GET     /assets/javascripts/routes          controllers.JavaScript.javascriptRoutes
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

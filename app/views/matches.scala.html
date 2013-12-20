@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Highfield Cricket Club!</title>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span3">
+          <img src="@routes.Assets.at("images/logo.jpeg")" alt="some_text">
+          <ul class="nav nav-tabs nav-stacked">
+            <li>
+              <a href="@routes.FrontEnd.index()">Home</a>
+            </li>
+            <li class="active">
+              <a>Matches</a>
+            </li>
+            <li>
+              <a href="@routes.FrontEnd.players()">Players</a>
+            </li>
+            <li>
+              <a href="@routes.FrontEnd.list()">Lists</a>
+            </li>
+          </ul>
+        </div>
+        <div class="span9" id="stuff">
+          <div>
+            <h1 class="pagination-centered">Highfield Cricket Club</h1>
+          </div>
+          <table id="matches" class="table">
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/model.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/view.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/view.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@routes.JavaScript.javascriptRoutes"></script>
+    <
+    <script>
+      $(document).ready(function() {
+        var restResponse = jQuery.ajax({
+          type : "GET",
+          url : "http://localhost:9000/api/match",
+          dataType : "json",
+          success : function(data) {
+            for (var i = 0; i < data.length; i++) {
+              var matchdata = data[i];
+              var opponent = produceMatchLink(matchdata);
+              var wonText = undefined;
+              if (matchdata.won) {
+                wonText = "Won";
+              } else {
+                wonText = "Lost";
+              }
+              var date = matchdata.date;
+              var dateText = date.date + "/" + date.month + "/" + date.year;
+              var team = "1st XI";
+
+              var table = document.getElementById("matches");
+              var rowCount = table.rows.length;
+
+              var row = table.insertRow(rowCount);
+
+              row.insertCell(0).innerHTML = team;
+              row.insertCell(1).innerHTML = "v";
+              row.insertCell(2).appendChild(opponent);
+              row.insertCell(3).innerHTML = dateText;
+
+              var wonClass = undefined;
+              if ( wonText = "Won") {
+                wonClass = "text-success";
+              } else {
+                wonClass = "text-danger";
+              }
+
+              var para = document.createElement("p");
+              para.classList.add(wonClass);
+              para.innerHTML = wonText;
+              row.insertCell(4).appendChild(para);
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+</html>
