@@ -1,0 +1,11 @@
+target/scala-2.10/src_managed/main
+data
+logs
+target
+.target
+.classpath
+bin
+.cache
+.classpath
+.gitignore~
+.project
