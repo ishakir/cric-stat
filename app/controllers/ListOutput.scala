@@ -21,6 +21,7 @@ import controllers.resource.BowlingAverage
 import controllers.resource.EconomyRate
 import controllers.resource.StrikeRate
 import play.api.libs.json.Json
+import utils.rest.InputValidation.seasonIsInDb
 
 object ListOutput extends Controller {
 
@@ -46,10 +47,28 @@ object ListOutput extends Controller {
   )
 
   def rankedList(target: String, season: Option[String]) = CORSAction { request =>
-
+    
     try {
+      
+      if(!season.isEmpty && !seasonIsInDb(season.get)) {
+        throw new IllegalArgumentException("Season "+season+" does not exist!")
+      }
+      
       val highfieldPlayers = highfieldPlayersQuery
-      val resources: Seq[PlayerListResource] = if (target.equals(runsOption)) {
+      val resources: Seq[PlayerListResource] = getResources(target, season, highfieldPlayers)
+
+      // Map that to Json
+      Ok(Json.toJson(resources.map(ind => ind.toJson)))
+
+    } catch {
+      case e: IllegalArgumentException => BadRequest(e.getMessage())
+    }
+
+  }
+  
+  def getResources(target: String, season: Option[String], highfieldPlayers: Seq[Player]): Seq[PlayerListResource] = {
+    
+    if (target.equals(runsOption)) {
         val players: Seq[Player] = highfieldPlayers
         val values: Seq[(Player, Int)] = processList(
           players, 
@@ -104,14 +123,7 @@ object ListOutput extends Controller {
       } else {
         throw new IllegalArgumentException("Possible targets are " + asList.mkString(",") + " not " + target)
       }
-
-      // Map that to Json
-      Ok(Json.toJson(resources.map(ind => ind.toJson)))
-
-    } catch {
-      case e: IllegalArgumentException => BadRequest(e.getMessage())
-    }
-
+    
   }
 
   def highfieldPlayersQuery[T]: Seq[(Player)] = {
