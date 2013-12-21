@@ -1,17 +1,15 @@
 package controllers
 
 import controllers.resource.Team
-
 import models.db.retrieve.DbRetrieveTeam
-
 import play.api.libs.json.Json
 import play.api.mvc.Controller
-
 import utils.rest.CORSAction
+import utils.rest.CricStatAction
 
 object TeamOutput extends Controller {
   
-  def allTeams() = CORSAction { request =>
+  def allTeams() = CricStatAction { request =>
     
     // Get all the teams from the database
     val allEntries = DbRetrieveTeam.findAll()

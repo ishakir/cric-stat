@@ -3,7 +3,7 @@ package controllers
 import models.db.retrieve.DbRetrievePlayer
 import controllers.resource.PlayerListResource
 import controllers.resource.PlayerListResourceType
-import utils.rest.CORSAction
+import utils.rest.CricStatAction
 import models.abstracts.Player
 import play.api.mvc.Controller
 import utils.db.BooleanHandling
@@ -46,9 +46,7 @@ object ListOutput extends Controller {
     strikeRateOption
   )
 
-  def rankedList(target: String, season: Option[String]) = CORSAction { request =>
-    
-    try {
+  def rankedList(target: String, season: Option[String]) = CricStatAction { request =>
       
       if(!season.isEmpty && !seasonIsInDb(season.get)) {
         throw new IllegalArgumentException("Season "+season+" does not exist!")
@@ -59,10 +57,6 @@ object ListOutput extends Controller {
 
       // Map that to Json
       Ok(Json.toJson(resources.map(ind => ind.toJson)))
-
-    } catch {
-      case e: IllegalArgumentException => BadRequest(e.getMessage())
-    }
 
   }
   

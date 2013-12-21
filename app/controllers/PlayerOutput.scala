@@ -2,21 +2,19 @@ package controllers
 
 import controllers.resource.Player
 import controllers.resource.PlayerProfile
-
 import models.db.retrieve.DbRetrievePlayer
-
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import play.api.libs.json.Json
-
 import utils.db.BooleanHandling
 import utils.db.PerformancesQuery
 import utils.resource.Jsonable
+import utils.rest.CricStatAction
 
 object PlayerOutput extends Controller {
   
   // TODO sort this out, as you have to get capitalization right
-  def playerQuery(nameQuery: Option[String]) = Action {request =>
+  def playerQuery(nameQuery: Option[String]) = CricStatAction {request =>
     
     val equalsMap: Map[String, String] = Map(DbRetrievePlayer.isHighfieldName -> BooleanHandling.boolToInt(true).toString)
     
@@ -38,7 +36,7 @@ object PlayerOutput extends Controller {
     
   }
   
-  def playerProfile(playerId: String, season: Option[String]) = Action { request => 
+  def playerProfile(playerId: String, season: Option[String]) = CricStatAction { request => 
   	
     // Get the relevant player from the db
     val player: models.abstracts.Player = DbRetrievePlayer.findById(playerId)

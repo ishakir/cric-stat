@@ -2,20 +2,18 @@ package controllers
 
 import controllers.parsing.MatchParser
 import controllers.resource.MatchOverview
-
 import models.abstracts.Match
 import models.db.build.DbSaveMatch
 import models.db.retrieve.DbRetrieveMatch
-
 import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import play.api.mvc.Controller
-
 import utils.resource.Jsonable
+import utils.rest.CricStatAction
 
 object MatchInput extends Controller {
   
-  def putMatch() = Action { request =>
+  def putMatch() = CricStatAction { request =>
     
     if(request.body.asJson.isEmpty) {
       BadRequest("No request body provided as JSON!")

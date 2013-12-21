@@ -2,17 +2,15 @@ package controllers
 
 import controllers.resource.MatchOverview
 import controllers.resource.MatchResource
-
 import models.db.retrieve.DbRetrieveMatch
-
 import play.api.mvc.Controller
 import play.api.libs.json.Json
-
 import utils.rest.CORSAction
+import utils.rest.CricStatAction
 
 object MatchOutput extends Controller {
   
-  def matchQuery(year: Option[String], teamId: Option[String]) = CORSAction { request =>
+  def matchQuery(year: Option[String], teamId: Option[String]) = CricStatAction { request =>
     
     // Form the parameter map
     val equalsMap: Map[String, String] = Map()
@@ -41,7 +39,7 @@ object MatchOutput extends Controller {
     
   }
   
-  def individualMatch(matchId: String) = CORSAction { request =>
+  def individualMatch(matchId: String) = CricStatAction { request =>
     
     // Get that match from the database
     val matchEntity = DbRetrieveMatch.findById(matchId)

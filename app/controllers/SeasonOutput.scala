@@ -1,17 +1,15 @@
 package controllers
 
 import controllers.resource.Season
-
 import play.api.mvc.Controller
 import play.api.libs.json.Json
-
 import models.db.retrieve.DbRetrieveSeason
-
 import utils.rest.CORSAction
+import utils.rest.CricStatAction
 
 object SeasonOutput extends Controller {
   
-	def allSeasons() = CORSAction { request =>
+	def allSeasons() = CricStatAction { request =>
 	  
 	  // Get all seasons from the database
 	  val seasons = DbRetrieveSeason.findAll()
