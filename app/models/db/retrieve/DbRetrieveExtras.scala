@@ -4,11 +4,13 @@ import anorm.~
 import anorm.Id
 import anorm.Pk
 import anorm.RowParser
+import anorm.SQL
 import anorm.SqlParser.get
-
 import models.abstracts.Extras
-
 import utils.db.DbFinder
+import play.api.db.DB
+import play.api.Play.current
+import utils.db.DeleteStatement
 
 class DbRetrieveExtras(
   iden: Pk[Long],
@@ -21,6 +23,8 @@ class DbRetrieveExtras(
 ) extends Extras {
   
   lazy val id: Long = iden.get
+  
+  lazy val delete: Unit = DbRetrieveExtras.deleteById(id.toString)
   
 }
 

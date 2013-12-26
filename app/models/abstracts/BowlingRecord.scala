@@ -1,6 +1,6 @@
 package models.abstracts
 
-abstract class BowlingRecord extends WithPublicKey {
+abstract class BowlingRecord extends WithPublicKey with Deletable {
   
   val matchPlayer: MatchPlayer
   

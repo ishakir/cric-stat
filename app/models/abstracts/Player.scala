@@ -2,7 +2,7 @@ package models.abstracts
 
 import utils.db.PerformancesQuery
 
-abstract class Player extends WithPublicKey {
+abstract class Player extends WithPublicKey with Deletable {
   
   val initial: String
   val surname: String

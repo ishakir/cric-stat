@@ -14,14 +14,13 @@ import models.abstracts.Match
 import utils.db.BooleanHandling
 import utils.db.DbFinder
 import utils.db.PerformancesQuery
-import utils.db.HasId
 
 class DbRetrievePlayer(
   iden: Pk[Long],
   val surname: String,
   val initial: String,
   val isHighfield: Boolean
-) extends Player with HasId {
+) extends Player {
   
   val id: Long = iden.get
   
@@ -32,6 +31,8 @@ class DbRetrievePlayer(
   def performances(query: PerformancesQuery): Seq[MatchPlayer] = {
     DbRetrieveMatchPlayer.findByPerformanceParams(query)
   }
+  
+  lazy val delete: Unit = DbRetrievePlayer.deleteById(id.toString)
   
 }
 

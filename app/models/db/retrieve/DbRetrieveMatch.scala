@@ -16,7 +16,6 @@ import models.abstracts.Extras
 import models.abstracts.MatchPlayer
 import models.abstracts.Match
 import utils.db.DbFinder
-import utils.db.HasId
 import utils.db.BooleanHandling
 
 class DbRetrieveMatch(
@@ -25,7 +24,7 @@ class DbRetrieveMatch(
   otherData: MatchMetadata,
   highfieldExtrasId: Int,
   nonHighfieldExtrasId: Int
-) extends Match with HasId {
+) extends Match {
 
   val id: Long = iden.get
 
@@ -79,6 +78,8 @@ class DbRetrieveMatch(
       "teamId: " + teamId + ", " + 
       "date: " + date + ", "
   }
+  
+  lazy val delete: Unit = DbRetrieveMatch.deleteById(id.toString)
   
 }
 

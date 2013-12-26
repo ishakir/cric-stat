@@ -2,12 +2,10 @@ package utils.db
 
 import anorm.RowParser
 import anorm.SQL
-
 import models.abstracts.WithPublicKey
-
-import play.api.db.DB
-import play.api.Play.current
 import play.api.Logger
+import play.api.Play.current
+import play.api.db.DB
 
 abstract class DbFinder[T >: Null <: WithPublicKey] {
   
@@ -61,6 +59,15 @@ abstract class DbFinder[T >: Null <: WithPublicKey] {
       Logger.info("Found no result")
       null
     }
+    
+  }
+  
+  def deleteById(id: String): Unit = DB.withConnection { implicit connection =>
+    
+    Logger.info("Asked to delete from table " + tableName + " with id " + id)
+    
+    val query: DeleteStatement = new DeleteStatement(tableName, idName, id)
+    SQL(query.toString).executeUpdate
     
   }
   

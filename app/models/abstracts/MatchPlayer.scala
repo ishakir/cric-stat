@@ -1,6 +1,6 @@
 package models.abstracts
 
-abstract class MatchPlayer extends WithPublicKey {
+abstract class MatchPlayer extends WithPublicKey with Deletable {
   
   val battingPosition: Int
   

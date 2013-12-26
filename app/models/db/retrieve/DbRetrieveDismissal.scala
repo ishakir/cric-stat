@@ -16,13 +16,12 @@ import play.api.db.DB
 import play.api.Play.current
 
 import utils.db.DbFinder
-import utils.db.HasId
 
 class DbRetrieveDismissal(
   iden: Pk[Long],
   dismissalTypeNumber: Int,
   bowlingRecordId: Int
-) extends Dismissal with HasId {
+) extends Dismissal {
   
   val id: Long = iden.get
   
@@ -50,6 +49,8 @@ class DbRetrieveDismissal(
   override def toString(): String = {
     "Dismissal " + id + ": " + dismissalType.toString + " for bowler " + bowlingRecordId
   }
+  
+  lazy val delete: Unit = DbRetrieveDismissal.deleteById(id.toString)
   
 }
 

@@ -4,15 +4,13 @@ import anorm.~
 import anorm.RowParser
 import anorm.SqlParser.get
 import anorm.SQL
-
 import models.abstracts.Dismissal
 import models.abstracts.MatchPlayer
-
 import play.api.db.DB
 import play.api.Play.current
 import play.api.Logger
-
 import utils.db.SelectStatement
+import utils.db.DeleteStatement
 
 object DbFieldingQuery {
   
@@ -62,6 +60,15 @@ object DbFieldingQuery {
       Logger.info("Found MatchPlayer with id " + matchPlayer.id)
       matchPlayer
     }
+    
+  }
+  
+  def deleteByDismissal(id: String): Unit = DB.withConnection { implicit connection =>
+    
+    Logger.info("Asked to remove fielder-dismissal pair for the dismissal with id " + id)
+    
+    val query = new DeleteStatement(tableName, dismissalName, id)
+    SQL(query.toString).executeUpdate
     
   }
   

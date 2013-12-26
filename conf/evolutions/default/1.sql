@@ -96,7 +96,7 @@ CREATE TABLE MatchPlayer (
 CREATE TABLE FielderDismissal (
   match_player int NOT NULL,
   dismissal int NOT NULL,
-  FOREIGN KEY (match_player)  REFERENCES MatchPlayer(mp_id),
+  FOREIGN KEY (match_player) REFERENCES MatchPlayer(mp_id),
   FOREIGN KEY (dismissal) REFERENCES Dismissal(dis_id)
 );
 

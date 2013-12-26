@@ -11,13 +11,12 @@ import models.abstracts.Dismissal
 import models.abstracts.MatchPlayer
 
 import utils.db.DbFinder
-import utils.db.HasId
 
 class DbRetrieveBattingRecord (
   iden: Pk[Long],
   val runs: Int,
   dismissalId: Int
-) extends BattingRecord with HasId {
+) extends BattingRecord {
   
   val id: Long = iden.get
   
@@ -45,6 +44,7 @@ class DbRetrieveBattingRecord (
     "Batting Record " + id + ": " + runs + " runs with dismissal " + dismissalId
   }
   
+  lazy val delete: Unit = DbRetrieveBattingRecord.deleteById(id.toString)
   
 }
 

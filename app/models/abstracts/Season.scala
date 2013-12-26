@@ -1,7 +1,8 @@
 package models.abstracts
 
-abstract class Season extends WithPublicKey {
+abstract class Season extends WithPublicKey with Deletable {
   
   def getYear(): Int
+  val matches: Seq[Match]
   
 }

@@ -11,7 +11,6 @@ import models.abstracts.MatchPlayer
 import models.abstracts.BowlingRecord
 
 import utils.db.DbFinder
-import utils.db.HasId
 
 class DbRetrieveBowlingRecord (
   iden: Pk[Long],
@@ -20,7 +19,7 @@ class DbRetrieveBowlingRecord (
   val maidens: Int,
   val runs: Int,
   val wickets: Int
-) extends BowlingRecord with HasId {
+) extends BowlingRecord {
   
   val id: Long = iden.get
   
@@ -50,6 +49,8 @@ class DbRetrieveBowlingRecord (
   override def toString() = {
     "Bowling Record " + id + ": " + overs + "." + extraBalls + "-" + maidens + "-" + runs + "-" + wickets
   }
+  
+  lazy val delete: Unit = DbRetrieveBowlingRecord.deleteById(id.toString)
   
 }
 

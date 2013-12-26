@@ -2,7 +2,7 @@ package models.abstracts
 
 import java.util.Calendar
 
-abstract class Match extends WithPublicKey {
+abstract class Match extends WithPublicKey with Deletable {
   
   val season: Season
   val date: Calendar
@@ -26,8 +26,10 @@ abstract class Match extends WithPublicKey {
   
   val highfieldBatsmen: Seq[MatchPlayer]
   val highfieldBowlers: Seq[MatchPlayer]
+  val highfieldMatchPlayers: Seq[MatchPlayer]
   
   val nonHighfieldBatsmen: Seq[MatchPlayer]
   val nonHighfieldBowlers: Seq[MatchPlayer]
+  val nonHighfieldMatchPlayers: Seq[MatchPlayer]
   
 }

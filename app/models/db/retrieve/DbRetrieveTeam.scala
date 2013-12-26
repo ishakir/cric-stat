@@ -5,10 +5,9 @@ import anorm.Id
 import anorm.Pk
 import anorm.RowParser
 import anorm.SqlParser.get
-
 import models.abstracts.Team
-
 import utils.db.DbFinder
+import models.abstracts.Match
 
 class DbRetrieveTeam(
   iden: Pk[Long],
@@ -18,6 +17,14 @@ class DbRetrieveTeam(
   lazy val id: Long = iden.get
   
   override def toString(): String = "Team " + id + ": " + name
+  
+  lazy val matches: Seq[Match] = {
+    DbRetrieveMatch.findFilteredByEqualsAttributes(Map(
+      DbRetrieveMatch.matchTypeName -> id.toString
+    ))
+  }
+  
+  lazy val delete: Unit = DbRetrieveTeam.deleteById(id.toString)
   
 }
 

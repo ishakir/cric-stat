@@ -2,7 +2,7 @@ package models.abstracts
 
 import models.DismissalType
 
-abstract class Dismissal extends WithPublicKey {
+abstract class Dismissal extends WithPublicKey with Deletable {
   
   val battingRecord: BattingRecord
   val bowlingRecord: BowlingRecord

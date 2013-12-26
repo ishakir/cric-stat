@@ -24,6 +24,8 @@ GET     /player/:id                         controllers.FrontEnd.player(id)
 # Only current data input is whacking in a whole match
 POST    /api/match                          controllers.MatchInput.putMatch
 
+DELETE  /api/match/:matchId                 controllers.MatchRemoval.removeMatch(matchId: String)
+
 # From that we can het hella lotta data
 GET     /api/list                           controllers.ListOutput.rankedList(target: String, season: Option[String])
 

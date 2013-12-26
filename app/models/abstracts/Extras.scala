@@ -1,6 +1,6 @@
 package models.abstracts
 
-abstract class Extras extends WithPublicKey {
+abstract class Extras extends WithPublicKey with Deletable {
   
   val noBalls: Int
   val wides: Int
