@@ -10,12 +10,14 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.resource.Jsonable
 import utils.rest.CricStatAction
+import play.api.Logger
 
 object MatchInput extends Controller {
   
   def putMatch() = CricStatAction { request =>
     
     if(request.body.asJson.isEmpty) {
+      Logger.info("No request body provided as JSON!")
       BadRequest("No request body provided as JSON!")
     }
     

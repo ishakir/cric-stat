@@ -4,6 +4,7 @@ object LinkGenerator {
   
   // Constructing Paths
   val pathSeparator = "/"
+  val root = "/api/"
   
   // Constructing Queries
   val queryStart = "?"
@@ -12,13 +13,13 @@ object LinkGenerator {
   
   // Roots
   val matchName = "match"
-  val matchRoot = pathSeparator + matchName
+  val matchRoot = root + matchName
   
   val playerName = "player"
-  val playerRoot = pathSeparator + playerName
+  val playerRoot = root + playerName
   
   val teamName = "team"
-  val teamRoot = pathSeparator + teamName
+  val teamRoot = root + teamName
   
   // Query Parameters
   val year = "year"

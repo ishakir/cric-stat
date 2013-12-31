@@ -20,7 +20,7 @@ class DbRetrieveTeam(
   
   lazy val matches: Seq[Match] = {
     DbRetrieveMatch.findFilteredByEqualsAttributes(Map(
-      DbRetrieveMatch.matchTypeName -> id.toString
+      DbRetrieveMatch.teamName -> id.toString
     ))
   }
   
