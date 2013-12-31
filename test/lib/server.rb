@@ -11,7 +11,7 @@ module TestServer
   def TestServer.start(port)
     
     # Play blocks, so start this on a new thread
-    Thread.new do
+    thread = Thread.new do
       TestConfig.get_logger.info("Starting server on port #{port}")
       output = Util::Process::run_command("play \"start #{port}\"", true)
     end
@@ -40,6 +40,10 @@ module TestServer
     else
       raise 'Server failed to start!'
     end
+    
+    # Can take a little bit longer
+    TestConfig::get_logger.info("Waiting 5 more seconds for listener to start")
+    sleep(5)
     
   end
   

@@ -1,3 +1,5 @@
+require 'logger'
+
 module TestConfig
   
   SERVER_IP = "localhost"
